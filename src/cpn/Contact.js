@@ -4,11 +4,28 @@ import {useState} from "react";
 export const Contact=()=>{
 
     const [showGratitude, setGratitude]=useState(false);
+    const[error, setError] = useState({
+        name: '',
+    });
+
     const handleSubmit=(event)=>{
         event.preventDefault();
-        setGratitude(true);
-    }
 
+        let valid=true;
+        const newError={name:''};
+
+        if(!event.target.name.value){
+            newError.name='Name is required';
+            valid=false;
+        }
+        setError(newError);
+        if(valid){
+
+            setGratitude(true);
+        }
+        
+    }
+    
     return(
 
         <div className="contact-me">
@@ -19,17 +36,17 @@ export const Contact=()=>{
             <form onSubmit={handleSubmit}>
                 <label>
                     Your Name:
-                    <input type="text" name="name"/>
+                    <input type="text" name="name" required/>
                 </label>
                 <br />
                 <label>
                     Your e-mail address:
-                    <input type="text" name="name"/>
+                    <input type="text" name="address" required/>
                 </label>
                 <br/>
                 <label>
                     Message:
-                    <input type="text" name="name"/>
+                    <input type="text" name="message" required/>
                 </label>
                 <br/>
                 <button type="submit">Submit</button>
